@@ -1,0 +1,15 @@
+build/
+managed_components/
+dependencies.lock
+sdkconfig
+sdkconfig.old
+.vscode/
+.idea/
+*.elf
+*.bin
+*.map
+*.o
+*.a
+test_access_logic
+test_access_logic.exe
+.env
