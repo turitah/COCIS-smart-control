@@ -8,6 +8,17 @@
 #define PIR_PIN GPIO_NUM_27
 #define TIMEOUT_MS 10000
 
+static int sequence = 0;
+
+static void publish_status(int occupied, int light_on)
+{
+    sequence++;
+    printf("{\"terminal_id\":\"ROOM1\",\"occupied\":%s,\"light_on\":%s,\"sequence\":%d}\n",
+           occupied ? "true" : "false",
+           light_on ? "true" : "false",
+           sequence);
+}
+
 void app_main(void)
 {
     gpio_set_direction(LED_PIN, GPIO_MODE_OUTPUT);
@@ -24,12 +35,12 @@ void app_main(void)
             if (!light_on) {
                 light_on = 1;
                 gpio_set_level(LED_PIN, 1);
-                printf("Motion detected: light ON\n");
+                publish_status(1, 1);
             }
         } else if (light_on && (now_ms - last_motion_ms) > TIMEOUT_MS) {
             light_on = 0;
             gpio_set_level(LED_PIN, 0);
-            printf("No motion for %d ms: light OFF\n", TIMEOUT_MS);
+            publish_status(0, 0);
         }
 
         vTaskDelay(pdMS_TO_TICKS(100));
