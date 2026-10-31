@@ -1,0 +1,80 @@
+{
+  "version": 1,
+  "author": "CoCIS Smart Control - Main Gate Subsystem",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 200, "left": 300, "attrs": {} },
+    
+    { "type": "wokwi-rc522", "id": "entryReader", "top": 50, "left": 600, "attrs": {} },
+    { "type": "wokwi-rc522", "id": "exitReader", "top": 250, "left": 600, "attrs": {} },
+    { "type": "wokwi-rfid-card", "id": "card1", "top": 100, "left": 760, "attrs": { "uid": "DEADBEEF" } },
+    { "type": "wokwi-rfid-card", "id": "card2", "top": 220, "left": 760, "attrs": { "uid": "11223344" } },
+    { "type": "wokwi-rfid-card", "id": "card3", "top": 340, "left": 760, "attrs": { "uid": "A1B2C3D4" } },
+    { "type": "wokwi-microsd-card", "id": "sdCard", "top": 450, "left": 600, "attrs": {} },
+    
+    { "type": "wokwi-ds1307", "id": "rtc", "top": 450, "left": 150, "attrs": {} },
+    
+    { "type": "wokwi-servo", "id": "entryServo", "top": 50, "left": 900, "attrs": {} },
+    { "type": "wokwi-servo", "id": "exitServo", "top": 200, "left": 900, "attrs": {} },
+    
+    { "type": "wokwi-resistor", "id": "greenResistor", "top": 380, "left": 900, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "greenLed", "top": 380, "left": 1000, "attrs": { "color": "green" } },
+    
+    { "type": "wokwi-resistor", "id": "redResistor", "top": 460, "left": 900, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "redLed", "top": 460, "left": 1000, "attrs": { "color": "red" } },
+    
+    { "type": "wokwi-buzzer", "id": "buzzer", "top": 550, "left": 900, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:18", "entryReader:SCK", "blue", [ "v0" ] ],
+    [ "esp:19", "entryReader:MISO", "purple", [ "v0" ] ],
+    [ "esp:23", "entryReader:MOSI", "green", [ "v0" ] ],
+    [ "esp:5",  "entryReader:SDA", "orange", [ "v0" ] ],
+    [ "esp:22", "entryReader:RST", "yellow", [ "v0" ] ],
+
+    [ "esp:18", "exitReader:SCK", "blue", [ "v0" ] ],
+    [ "esp:19", "exitReader:MISO", "purple", [ "v0" ] ],
+    [ "esp:23", "exitReader:MOSI", "green", [ "v0" ] ],
+    [ "esp:17", "exitReader:SDA", "orange", [ "v0" ] ],
+    [ "esp:21", "exitReader:RST", "yellow", [ "v0" ] ],
+
+    [ "esp:18", "sdCard:SCK", "blue", [ "v0" ] ],
+    [ "esp:19", "sdCard:MISO", "purple", [ "v0" ] ],
+    [ "esp:23", "sdCard:MOSI", "green", [ "v0" ] ],
+    [ "esp:15", "sdCard:CS", "orange", [ "v0" ] ],
+
+    [ "esp:4",  "rtc:SDA", "green", [ "v0" ] ],
+    [ "esp:16", "rtc:SCL", "yellow", [ "v0" ] ],
+
+    [ "esp:25", "entryServo:PWM", "cyan", [ "v0" ] ],
+    [ "esp:26", "exitServo:PWM", "cyan", [ "v0" ] ],
+
+    [ "esp:32", "greenResistor:1", "green", [ "v0" ] ],
+    [ "greenResistor:2", "greenLed:A", "green", [ "v0" ] ],
+    [ "greenLed:C", "esp:GND.1", "black", [ "v0" ] ],
+
+    [ "esp:33", "redResistor:1", "red", [ "v0" ] ],
+    [ "redResistor:2", "redLed:A", "red", [ "v0" ] ],
+    [ "redLed:C", "esp:GND.1", "black", [ "v0" ] ],
+
+    [ "esp:27", "buzzer:1", "yellow", [ "v0" ] ],
+    [ "buzzer:2", "esp:GND.1", "black", [ "v0" ] ],
+
+    [ "entryReader:3.3V", "esp:3V3", "red", [ "v0" ] ],
+    [ "entryReader:GND",  "esp:GND.1", "black", [ "v0" ] ],
+    [ "exitReader:3.3V",  "esp:3V3", "red", [ "v0" ] ],
+    [ "exitReader:GND",   "esp:GND.1", "black", [ "v0" ] ],
+
+    [ "sdCard:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "sdCard:GND", "esp:GND.1", "black", [ "v0" ] ],
+
+    [ "rtc:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "rtc:GND", "esp:GND.1", "black", [ "v0" ] ],
+
+    [ "entryServo:V+",  "esp:VIN", "red", [ "v0" ] ],
+    [ "entryServo:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "exitServo:V+",   "esp:VIN", "red", [ "v0" ] ],
+    [ "exitServo:GND",  "esp:GND.1", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+} 
