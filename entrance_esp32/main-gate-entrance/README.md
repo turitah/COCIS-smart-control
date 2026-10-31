@@ -19,6 +19,12 @@ cannot be used to enter twice without first exiting. Recognized cards may
 always exit. The microSD card is present in the diagram but is not used by this
 firmware. The Wokwi diagram includes RFID cards with these sample UIDs.
 
+To test in Wokwi, start the simulation and use its Serial Monitor. Enter `1`
+and press Enter for entry, then type a registered UID such as `DEADBEEF` and
+press Enter. Enter `2` and a UID for exit. The servo, LED, and buzzer respond
+to the simulated scan. You can also drag an RFID card onto a reader to test the
+physical reader path in the diagram.
+
 Build from this directory with `pio run -j 1`. The single-job build avoids
 missing-object failures during ESP-IDF's initial parallel build. The VS Code
 build task uses this command too. Wokwi expects
