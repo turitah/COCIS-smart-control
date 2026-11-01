@@ -3,100 +3,38 @@
   "author": "CoCIS Smart Control - Main Gate Subsystem",
   "editor": "wokwi",
   "parts": [
-    {
-      "type": "wokwi-esp32-devkit-v1",
-      "id": "esp",
-      "top": 120,
-      "left": 150,
-      "attrs": {}
-    },
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 150, "left": 100, "attrs": {} },
+    
+    { "type": "wokwi-servo", "id": "entryServo", "top": 30, "left": 450, "attrs": {} },
+    { "type": "wokwi-servo", "id": "exitServo", "top": 150, "left": 450, "attrs": {} },
 
-    {
-      "type": "wokwi-servo",
-      "id": "entryServo",
-      "top": -80,
-      "left": 480,
-      "attrs": {}
-    },
+    { "type": "wokwi-led", "id": "greenLed", "top": 280, "left": 450, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "greenRes", "top": 280, "left": 380, "attrs": { "value": "220" } },
+    
+    { "type": "wokwi-led", "id": "redLed", "top": 360, "left": 450, "attrs": { "color": "red" } },
+    { "type": "wokwi-resistor", "id": "redRes", "top": 360, "left": 380, "attrs": { "value": "220" } },
 
-    {
-      "type": "wokwi-servo",
-      "id": "exitServo",
-      "top": 80,
-      "left": 480,
-      "attrs": {}
-    },
-
-    {
-      "type": "wokwi-led",
-      "id": "greenLed",
-      "top": 260,
-      "left": 520,
-      "attrs": {
-        "color": "green"
-      }
-    },
-
-    {
-      "type": "wokwi-resistor",
-      "id": "greenRes",
-      "top": 260,
-      "left": 440,
-      "attrs": {
-        "value": "330"
-      }
-    },
-
-    {
-      "type": "wokwi-led",
-      "id": "redLed",
-      "top": 330,
-      "left": 520,
-      "attrs": {
-        "color": "red"
-      }
-    },
-
-    {
-      "type": "wokwi-resistor",
-      "id": "redRes",
-      "top": 330,
-      "left": 440,
-      "attrs": {
-        "value": "330"
-      }
-    },
-
-    {
-      "type": "wokwi-buzzer",
-      "id": "buzzer",
-      "top": 420,
-      "left": 500,
-      "attrs": {}
-    }
+    { "type": "wokwi-buzzer", "id": "buzzer", "top": 450, "left": 450, "attrs": {} }
   ],
-
   "connections": [
+    [ "esp:25", "entryServo:PWM", "cyan", [] ],
+    [ "entryServo:V+", "esp:VIN", "red", [] ],
+    [ "entryServo:GND", "esp:GND.1", "black", [] ],
 
-    ["esp:25","entryServo:PWM","orange"],
-    ["entryServo:V+","esp:5V","red"],
-    ["entryServo:GND","esp:GND.1","black"],
+    [ "esp:26", "exitServo:PWM", "cyan", [] ],
+    [ "exitServo:V+", "esp:VIN", "red", [] ],
+    [ "exitServo:GND", "esp:GND.1", "black", [] ],
 
-    ["esp:26","exitServo:PWM","orange"],
-    ["exitServo:V+","esp:5V","red"],
-    ["exitServo:GND","esp:GND.1","black"],
+    [ "esp:32", "greenRes:1", "green", [] ],
+    [ "greenRes:2", "greenLed:A", "green", [] ],
+    [ "greenLed:C", "esp:GND.1", "black", [] ],
 
-    ["esp:32","greenRes:1","green"],
-    ["greenRes:2","greenLed:A","green"],
-    ["greenLed:C","esp:GND.1","black"],
+    [ "esp:33", "redRes:1", "red", [] ],
+    [ "redRes:2", "redLed:A", "red", [] ],
+    [ "redLed:C", "esp:GND.1", "black", [] ],
 
-    ["esp:33","redRes:1","red"],
-    ["redRes:2","redLed:A","red"],
-    ["redLed:C","esp:GND.1","black"],
-
-    ["esp:27","buzzer:1","yellow"],
-    ["buzzer:2","esp:GND.1","black"]
+    [ "esp:27", "buzzer:1", "yellow", [] ],
+    [ "buzzer:2", "esp:GND.1", "black", [] ]
   ],
-
   "dependencies": {}
 } 

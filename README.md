@@ -9,8 +9,8 @@ ESP-IDF coursework starter for the CoCIS smart building pilot (three logical ter
 ## Important Wokwi limitation
 Wokwi's FAQ currently says multiple microcontrollers in one project are unsupported. Keep the three firmware targets logically separate in this repository. Validate the lecturer's demonstration expectation and use separate Wokwi simulations (or a supported network-gateway approach) if necessary. See https://docs.wokwi.com/faq.
 
-## Tonight's entrance milestone
-The `shared/access_logic` module implements and host-tests the entrance's decision/state logic independently from the RFID reader driver. The `entrance_esp32` folder is the ESP-IDF project scaffold. The RFID hardware driver and its SPI wiring must be integrated and tested before claiming the RFID subsystem is complete.
+## Entrance subsystem
+The `entrance_esp32` ESP-IDF project integrates two RC522 readers, entry/exit gate servos, access decisions, in-memory occupancy, and a bounded serial event log. The host-testable policy is in `shared/access_logic`. Firmware compilation and the JSON wiring diagram are validated; card scans still need to be exercised in Wokwi or on the physical readers before claiming hardware-level validation. Event history and occupancy are RAM-only and reset on restart.
 
 ## Repository conventions
 - `main`: integration branch; only tested changes should be merged.
