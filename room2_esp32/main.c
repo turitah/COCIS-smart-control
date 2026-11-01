@@ -24,8 +24,8 @@
 
 #define STR_(x) #x
 #define STR(x)  STR_(x)
-#define TOPIC      "SE-22/room" STR(ROOM_ID) "/occupancy"
-#define CLIENT_ID  "SE-22-room" STR(ROOM_ID)       // must be unique on the broker
+#define TOPIC      "room" STR(ROOM_ID) "/occupancy"
+#define CLIENT_ID  "room" STR(ROOM_ID)       // must be unique on the broker
 #define MQTT_URI   "mqtt://broker.hivemq.com:1883"
 
 // ---------------------------------------------------------------------
