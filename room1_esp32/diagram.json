@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "author": "CoCIS Smart Control",
+  "editor": "wokwi",
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": { "builder": "esp-idf" }
+    },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir1",
+      "top": 117.48,
+      "left": -158.7,
+      "rotate": 270,
+      "attrs": {}
+    },
+    { "type": "wokwi-led", "id": "led1", "top": 63.6, "left": -73, "attrs": { "color": "green" } },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -24.55,
+      "left": 27.4,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "pir1:VCC", "esp:5V", "red", [ "h67.2", "v134.4" ] ],
+    [ "pir1:GND", "esp:GND.1", "black", [ "h67.2", "v105.86" ] ],
+    [ "esp:13", "pir1:OUT", "green", [ "h-81.41", "v0" ] ],
+    [ "esp:26", "led1:A", "green", [ "h-62.21" ] ],
+    [ "esp:GND.2", "r1:2", "black", [ "v-48", "h-14.36" ] ],
+    [ "led1:C", "r1:1", "green", [ "v-124.8", "h86.8" ] ]
+  ],
+  "dependencies": {}
+}

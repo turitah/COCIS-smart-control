@@ -1,10 +1,10 @@
 {
   "version": 1,
-  "author": "Member 5 - Entrance",
+  "author": "Niwa - Entrance",
   "editor": "wokwi",
   "parts": [
     {
-      "type": "board-esp32-devkit-c-v4",
+      "type": "board-esp32-devkit-c-v4",add
       "id": "esp",
       "top": 0,
       "left": 0,
@@ -37,17 +37,30 @@
       "top": 30,
       "left": 200,
       "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-microsd-card",
+      "id": "sd",
+      "top": 180,
+      "left": 300,
+      "attrs": {}
     }
   ],
   "connections": [
-    [ "esp:TX", "$serialMonitor:RX", "", [] ],
-    [ "esp:RX", "$serialMonitor:TX", "", [] ],
-    [ "esp:2", "led_green:A", "green", [] ],
-    [ "esp:4", "led_red:A", "red", [] ],
-    [ "led_green:C", "r1:1", "green", [] ],
-    [ "led_red:C", "r2:1", "red", [] ],
-    [ "r1:2", "esp:GND.1", "black", [] ],
-    [ "r2:2", "esp:GND.1", "black", [] ]
+    ["esp:TX", "$serialMonitor:RX", "", []],
+    ["esp:RX", "$serialMonitor:TX", "", []],
+    ["esp:2", "led_green:A", "green", []],
+    ["esp:4", "led_red:A", "red", []],
+    ["led_green:C", "r1:1", "green", []],
+    ["led_red:C", "r2:1", "red", []],
+    ["r1:2", "esp:GND.1", "black", []],
+    ["r2:2", "esp:GND.1", "black", []],
+    ["esp:18", "sd:SCK", "blue", []],
+    ["esp:19", "sd:DO", "purple", []],
+    ["esp:23", "sd:DI", "green", []],
+    ["esp:5", "sd:CS", "orange", []],
+    ["esp:3V3", "sd:VCC", "red", []],
+    ["esp:GND.2", "sd:GND", "black", []]
   ],
   "dependencies": {}
 }
