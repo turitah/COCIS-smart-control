@@ -75,3 +75,24 @@ access_result_t access_process_card(access_state_t *state,
 
     return ACCESS_DENIED_UNKNOWN_CARD;
 }
+
+bool access_schedule_is_open(int start_minute, int end_minute, int now_minute)
+{
+    const int minutes_per_day = 24 * 60;
+
+    if (start_minute < 0 || start_minute >= minutes_per_day ||
+        end_minute < 0 || end_minute >= minutes_per_day ||
+        now_minute < 0 || now_minute >= minutes_per_day) {
+        return false;
+    }
+
+    if (start_minute == end_minute) {
+        return true;
+    }
+
+    if (start_minute < end_minute) {
+        return now_minute >= start_minute && now_minute < end_minute;
+    }
+
+    return now_minute >= start_minute || now_minute < end_minute;
+}

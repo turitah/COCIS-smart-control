@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#define ACCESS_UID_MAX_LEN 16
+#define ACCESS_UID_MAX_LEN 20
 #define ACCESS_MAX_USERS 8
 
 typedef enum {
@@ -40,5 +40,10 @@ access_result_t access_process_card(access_state_t *state,
                                     const char *uid,
                                     access_direction_t direction,
                                     bool schedule_open);
+
+/* Return true when now_minute falls inside the [start_minute, end_minute)
+   window. Windows that cross midnight (start > end) are supported. A zero
+   length window (start == end) means the gate is open all day. */
+bool access_schedule_is_open(int start_minute, int end_minute, int now_minute);
 
 #endif

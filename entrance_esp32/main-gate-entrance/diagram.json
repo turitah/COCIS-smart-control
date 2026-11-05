@@ -1,40 +1,69 @@
 {
   "version": 1,
-  "author": "CoCIS Smart Control - Main Gate Subsystem",
+  "author": "CoCIS",
   "editor": "wokwi",
   "parts": [
-    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 150, "left": 100, "attrs": {} },
-    
-    { "type": "wokwi-servo", "id": "entryServo", "top": 30, "left": 450, "attrs": {} },
-    { "type": "wokwi-servo", "id": "exitServo", "top": 150, "left": 450, "attrs": {} },
-
-    { "type": "wokwi-led", "id": "greenLed", "top": 280, "left": 450, "attrs": { "color": "green" } },
-    { "type": "wokwi-resistor", "id": "greenRes", "top": 280, "left": 380, "attrs": { "value": "220" } },
-    
-    { "type": "wokwi-led", "id": "redLed", "top": 360, "left": 450, "attrs": { "color": "red" } },
-    { "type": "wokwi-resistor", "id": "redRes", "top": 360, "left": 380, "attrs": { "value": "220" } },
-
-    { "type": "wokwi-buzzer", "id": "buzzer", "top": 450, "left": 450, "attrs": {} }
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "board-mfrc522", "id": "entryRc522", "top": 0, "left": 300, "attrs": { "uid": "DE:AD:BE:EF" } },
+    { "type": "board-mfrc522", "id": "exitRc522", "top": 230, "left": 300, "attrs": { "uid": "DE:AD:BE:EF" } },
+    { "type": "wokwi-microsd-card", "id": "sd", "top": 0, "left": 550, "attrs": {} },
+    { "type": "wokwi-servo", "id": "entryServo", "top": 0, "left": 760, "attrs": {} },
+    { "type": "wokwi-servo", "id": "exitServo", "top": 150, "left": 760, "attrs": {} },
+    { "type": "wokwi-pushbutton", "id": "entryButton", "top": 300, "left": 560, "attrs": { "color": "green", "label": "ENTRY" } },
+    { "type": "wokwi-pushbutton", "id": "exitButton", "top": 370, "left": 560, "attrs": { "color": "red", "label": "EXIT" } },
+    { "type": "wokwi-resistor", "id": "greenResistor", "top": 330, "left": 760, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "greenLed", "top": 330, "left": 850, "attrs": { "color": "green" } },
+    { "type": "wokwi-resistor", "id": "redResistor", "top": 400, "left": 760, "attrs": { "value": "220" } },
+    { "type": "wokwi-led", "id": "redLed", "top": 400, "left": 850, "attrs": { "color": "red" } },
+    { "type": "wokwi-buzzer", "id": "buzzer", "top": 470, "left": 760, "attrs": {} }
   ],
   "connections": [
-    [ "esp:25", "entryServo:PWM", "cyan", [] ],
+    [ "esp:D18", "entryRc522:SCK", "blue", [] ],
+    [ "esp:D19", "entryRc522:MISO", "purple", [] ],
+    [ "esp:D23", "entryRc522:MOSI", "green", [] ],
+    [ "esp:D5", "entryRc522:SDA", "orange", [] ],
+    [ "esp:D21", "entryRc522:RST", "yellow", [] ],
+    [ "esp:3V3", "entryRc522:3.3V", "red", [] ],
+    [ "esp:GND.1", "entryRc522:GND", "black", [] ],
+
+    [ "esp:D18", "exitRc522:SCK", "blue", [] ],
+    [ "esp:D19", "exitRc522:MISO", "purple", [] ],
+    [ "esp:D23", "exitRc522:MOSI", "green", [] ],
+    [ "esp:D14", "exitRc522:SDA", "orange", [] ],
+    [ "esp:D22", "exitRc522:RST", "yellow", [] ],
+    [ "esp:3V3", "exitRc522:3.3V", "red", [] ],
+    [ "esp:GND.1", "exitRc522:GND", "black", [] ],
+
+    [ "esp:D18", "sd:SCK", "blue", [] ],
+    [ "esp:D19", "sd:DO", "purple", [] ],
+    [ "esp:D23", "sd:DI", "green", [] ],
+    [ "esp:D13", "sd:CS", "orange", [] ],
+    [ "esp:3V3", "sd:VCC", "red", [] ],
+    [ "esp:GND.1", "sd:GND", "black", [] ],
+
+    [ "esp:D25", "entryServo:PWM", "cyan", [] ],
     [ "entryServo:V+", "esp:VIN", "red", [] ],
     [ "entryServo:GND", "esp:GND.1", "black", [] ],
 
-    [ "esp:26", "exitServo:PWM", "cyan", [] ],
+    [ "esp:D26", "exitServo:PWM", "cyan", [] ],
     [ "exitServo:V+", "esp:VIN", "red", [] ],
     [ "exitServo:GND", "esp:GND.1", "black", [] ],
 
-    [ "esp:32", "greenRes:1", "green", [] ],
-    [ "greenRes:2", "greenLed:A", "green", [] ],
+    [ "entryButton:1.l", "esp:RX2", "green", [] ],
+    [ "entryButton:2.l", "esp:GND.1", "black", [] ],
+
+    [ "exitButton:1.l", "esp:TX2", "red", [] ],
+    [ "exitButton:2.l", "esp:GND.1", "black", [] ],
+
+    [ "esp:D32", "greenResistor:1", "green", [] ],
+    [ "greenResistor:2", "greenLed:A", "green", [] ],
     [ "greenLed:C", "esp:GND.1", "black", [] ],
 
-    [ "esp:33", "redRes:1", "red", [] ],
-    [ "redRes:2", "redLed:A", "red", [] ],
+    [ "esp:D33", "redResistor:1", "red", [] ],
+    [ "redResistor:2", "redLed:A", "red", [] ],
     [ "redLed:C", "esp:GND.1", "black", [] ],
 
-    [ "esp:27", "buzzer:1", "yellow", [] ],
+    [ "esp:D27", "buzzer:1", "yellow", [] ],
     [ "buzzer:2", "esp:GND.1", "black", [] ]
-  ],
-  "dependencies": {}
-} 
+  ]
+}
