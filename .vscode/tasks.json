@@ -1,0 +1,133 @@
+{
+  "version": "2.0.0",
+  "options": {
+    "cwd": "${workspaceFolder}"
+  },
+  "tasks": [
+    {
+      "label": "ESP-IDF: Build",
+      "detail": "Compile the firmware (idf.py build). Bound to Ctrl+Shift+B.",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/idf.ps1",
+        "build"
+      ],
+      "group": { "kind": "build", "isDefault": true },
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "ESP-IDF: Clean",
+      "detail": "Delete build output for the current project (idf.py clean).",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/idf.ps1",
+        "clean"
+      ],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "ESP-IDF: Full Clean",
+      "detail": "Delete the whole build directory (idf.py fullclean).",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/idf.ps1",
+        "fullclean"
+      ],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "ESP-IDF: Flash",
+      "detail": "Build, then flash over the serial port you enter.",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/idf.ps1",
+        "-p", "${input:serialPort}",
+        "flash"
+      ],
+      "dependsOn": ["ESP-IDF: Build"],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "ESP-IDF: Monitor",
+      "detail": "Open the serial monitor on the port you enter.",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/idf.ps1",
+        "-p", "${input:serialPort}",
+        "monitor"
+      ],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": false }
+    },
+    {
+      "label": "ESP-IDF: Build, Flash and Monitor",
+      "detail": "One-shot build + flash + serial monitor.",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/idf.ps1",
+        "-p", "${input:serialPort}",
+        "build", "flash", "monitor"
+      ],
+      "problemMatcher": ["$gcc"],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "ESP-IDF: Menuconfig",
+      "detail": "Open the Kconfig editor (idf.py menuconfig).",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/idf.ps1",
+        "menuconfig"
+      ],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    },
+    {
+      "label": "ESP-IDF: Application Size",
+      "detail": "Show the firmware size report (idf.py size).",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-NoProfile",
+        "-ExecutionPolicy", "Bypass",
+        "-File", "${workspaceFolder}/idf.ps1",
+        "size"
+      ],
+      "problemMatcher": [],
+      "presentation": { "reveal": "always", "panel": "dedicated", "clear": true }
+    }
+  ],
+  "inputs": [
+    {
+      "id": "serialPort",
+      "type": "promptString",
+      "description": "Serial port for flashing/monitoring (e.g. COM5). Not needed for the Wokwi simulator.",
+      "default": "COM5"
+    }
+  ]
+}

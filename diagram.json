@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "author": "Joseph",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-microsd-card", "id": "sd1", "top": -100, "left": 150, "attrs": {} },
+    { "type": "wokwi-pir-motion-sensor", "id": "pir1", "top": 50, "left": 150, "attrs": {} },
+    { "type": "wokwi-pir-motion-sensor", "id": "pir2", "top": 150, "left": 150, "attrs": {} },
+    { "type": "wokwi-led", "id": "led1", "top": 250, "left": 150, "attrs": { "color": "yellow" } },
+    { "type": "wokwi-led", "id": "led2", "top": 300, "left": 150, "attrs": { "color": "yellow" } },
+    { "type": "wokwi-led", "id": "led_green", "top": 350, "left": 150, "attrs": { "color": "green" } },
+    { "type": "wokwi-led", "id": "led_red", "top": 400, "left": 150, "attrs": { "color": "red" } },
+    { "type": "wokwi-buzzer", "id": "bz1", "top": 450, "left": 150, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo1", "top": 50, "left": 300, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo2", "top": 200, "left": 300, "attrs": {} },
+    { "type": "board-mfrc522", "id": "rfid_entry", "top": -200, "left": 450, "attrs": {} },
+    { "type": "board-mfrc522", "id": "rfid_exit", "top": -80, "left": 450, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:D19", "sd1:DO",   "green", [] ],
+    [ "esp:D23", "sd1:DI",   "green", [] ],
+    [ "esp:D18", "sd1:SCK",  "green", [] ],
+    [ "esp:D5",  "sd1:CS",   "green", [] ],
+    [ "esp:3V3", "sd1:VCC", "red", [] ],
+    [ "esp:GND.1", "sd1:GND", "black", [] ],
+    
+    [ "esp:D22", "pir1:OUT", "green", [] ],
+    [ "esp:3V3", "pir1:VCC", "red", [] ],
+    [ "esp:GND.1", "pir1:GND", "black", [] ],
+    
+    [ "esp:D4", "pir2:OUT", "green", [] ],
+    [ "esp:3V3", "pir2:VCC", "red", [] ],
+    [ "esp:GND.1", "pir2:GND", "black", [] ],
+    
+    [ "esp:D21", "led1:A", "green", [] ],
+    [ "esp:GND.1", "led1:C", "black", [] ],
+    
+    [ "esp:D33", "led2:A", "green", [] ],
+    [ "esp:GND.1", "led2:C", "black", [] ],
+    
+    [ "esp:D32", "led_green:A", "green", [] ],
+    [ "esp:GND.1", "led_green:C", "black", [] ],
+    
+    [ "esp:D27", "led_red:A", "green", [] ],
+    [ "esp:GND.1", "led_red:C", "black", [] ],
+    
+    [ "esp:D14", "bz1:1", "green", [] ],
+    [ "esp:GND.1", "bz1:2", "black", [] ],
+    
+    [ "esp:D25", "servo1:PWM", "green", [] ],
+    [ "esp:3V3", "servo1:V+", "red", [] ],
+    [ "esp:GND.1", "servo1:GND", "black", [] ],
+    
+    [ "esp:D26", "servo2:PWM", "green", [] ],
+    [ "esp:3V3", "servo2:V+", "red", [] ],
+    [ "esp:GND.1", "servo2:GND", "black", [] ],
+
+    [ "esp:D19", "rfid_entry:MISO", "green", [] ],
+    [ "esp:D23", "rfid_entry:MOSI", "green", [] ],
+    [ "esp:D18", "rfid_entry:SCK", "green", [] ],
+    [ "esp:D16", "rfid_entry:SDA", "blue", [] ],
+    [ "esp:3V3", "rfid_entry:3.3V", "red", [] ],
+    [ "esp:3V3", "rfid_entry:RST", "red", [] ],
+    [ "esp:GND.1", "rfid_entry:GND", "black", [] ],
+
+    [ "esp:D19", "rfid_exit:MISO", "green", [] ],
+    [ "esp:D23", "rfid_exit:MOSI", "green", [] ],
+    [ "esp:D18", "rfid_exit:SCK", "green", [] ],
+    [ "esp:D17", "rfid_exit:SDA", "blue", [] ],
+    [ "esp:3V3", "rfid_exit:3.3V", "red", [] ],
+    [ "esp:3V3", "rfid_exit:RST", "red", [] ],
+    [ "esp:GND.1", "rfid_exit:GND", "black", [] ]
+  ]
+}
